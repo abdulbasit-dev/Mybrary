@@ -1,0 +1,18 @@
+{
+  "name": "Mybrary",
+  "version": "1.0.0",
+  "main": "main.js",
+  "repository": "https://github.com/abdulbasit-web/Mybrary.git",
+  "author": "abdulbasit-web <abdullbasit99salah@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node server.js",
+    "devStart": "nodemon server.js"
+  },
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "mongoose": "^5.10.5"
+  }
+}
