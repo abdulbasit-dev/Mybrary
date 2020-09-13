@@ -1,22 +1,28 @@
 const express = require('express')
-const {urlencoded} = require('express')
+const expressLayouts = require('express-ejs-layouts')
+const router = require('./routes/index')
+const mongoose = require('mongoose')
 
 //express app
 const app = express()
 
 // register view engin
-app.set('view engin', 'ejs')
+app.set('view engine', 'ejs')
+app.set('layout', 'layouts/layout')
 
 //connect to mongoBb
-const DB_URL = ''
+const DB_URL =
+  'mongodb+srv://abdulbasit:42591800@cluster0.bghf6.mongodb.net/mybrary?retryWrites=true&w=majority'
+mongoose.connect(DB_URL, {useNewUrlParser: true, useUnifiedTopology: true}, () => {
+  console.log('connected')
+})
 
 //midleware
 app.use(express.static('public'))
-app.use(urlencoded({extended: true}))
+app.use(express.urlencoded({extended: true}))
+app.use(expressLayouts)
 
 //listen for requets
-app.listen(3000)
+app.listen(process.env.PORT || 3000)
 
-app.get('/', (req, resp) => {
-  resp.send('shdgh')
-})
+app.get('/', router)
