@@ -1,6 +1,8 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
-const router = require('./routes/index')
+const indexRouter = require('./routes/index')
+const authorRouter = require('./routes/authors')
+
 const mongoose = require('mongoose')
 
 //express app
@@ -9,6 +11,7 @@ const app = express()
 // register view engin
 app.set('view engine', 'ejs')
 app.set('layout', 'layouts/layout')
+// app.set('views', __dirname + '/views')
 
 //connect to mongoBb
 const DB_URL =
@@ -19,10 +22,12 @@ mongoose.connect(DB_URL, {useNewUrlParser: true, useUnifiedTopology: true}, () =
 
 //midleware
 app.use(express.static('public'))
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({extended: false, limit: '10mb'}))
 app.use(expressLayouts)
 
 //listen for requets
 app.listen(process.env.PORT || 3000)
 
-app.get('/', router)
+//routers
+app.use('/', indexRouter)
+app.use('/authors', authorRouter)
